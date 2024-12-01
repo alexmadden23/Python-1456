@@ -1,17 +1,29 @@
 def get_recommendation(day, temperature, condition):
     recommendation = f"Recommendations for {day}:\n"
     
-    if temperature > 25:
+    if temperature > 77:  # > 25°C
         recommendation += "- It's warm, consider wearing light clothing.\n"
-    elif temperature < 15:
+        if condition.lower() == "sunny":
+            recommendation += "- Great weather for a hike, going to the beach, or a picnic.\n"
+        elif condition.lower() == "cloudy":
+            recommendation += "- Good weather for a walk in the park or an outdoor workout.\n"
+    elif temperature < 59:  # < 15°C
         recommendation += "- It's cold, consider wearing a jacket.\n"
-    else:
+        if condition.lower() == "rainy":
+            recommendation += "- Perfect day for reading a book, watching movies, or indoor board games.\n"
+        elif condition.lower() == "cloudy":
+            recommendation += "- Consider visiting a museum, a coffee shop, or doing indoor activities.\n"
+    else:  # Between 59°F and 77°F
         recommendation += "- Mild weather, dress comfortably.\n"
-    
+        if condition.lower() == "sunny":
+            recommendation += "- Enjoy outdoor activities like jogging, cycling, or gardening.\n"
+        elif condition.lower() == "cloudy":
+            recommendation += "- A good day for a leisurely walk or light outdoor sports.\n"
+
     if condition.lower() == "sunny":
-        recommendation += "- It's sunny, wear sunglasses and enjoy outdoor activities.\n"
+        recommendation += "- It's sunny, wear sunglasses and sunscreen.\n"
     elif condition.lower() == "rainy":
-        recommendation += "- It's rainy, consider staying indoors or carrying an umbrella.\n"
+        recommendation += "- It's rainy, carry an umbrella and consider indoor activities.\n"
     elif condition.lower() == "cloudy":
         recommendation += "- It's cloudy, a neutral day for activities.\n"
     else:
@@ -25,9 +37,8 @@ def weather_planner():
     days_count = 0
     
     while True:
-        
         day = input("Enter the day of the week: ")
-        temperature = float(input("Enter the temperature (°C): "))
+        temperature = float(input("Enter the temperature (°F): "))
         condition = input("Enter the weather condition (Sunny, Rainy, Cloudy): ")
         
         recommendation = get_recommendation(day, temperature, condition)
@@ -44,10 +55,11 @@ def weather_planner():
     if days_count > 1:
         average_temp = total_temperature / days_count
         print("\n--- Summary ---")
-        print(f"Average Temperature: {average_temp:.2f}°C")
+        print(f"Average Temperature: {average_temp:.2f}°F")
         print("Recommendations Summary:")
         for rec in recommendations:
             print(rec)
 
 
 weather_planner()
+
